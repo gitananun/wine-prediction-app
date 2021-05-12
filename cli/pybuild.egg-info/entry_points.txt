@@ -1,0 +1,3 @@
+[console_scripts]
+pybuild = pybuild.__main__:main
+
