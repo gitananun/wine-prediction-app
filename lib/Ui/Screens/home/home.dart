@@ -4,7 +4,21 @@ import 'package:schema/Ui/Widgets/containers/custom_scaffold_main_container.dart
 import 'package:schema/Ui/Widgets/form_fields/custom_text_form_field.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final List<String> _attributes = [
+    'Fixed Acidity',
+    'Volatile acidity',
+    'Citric acid',
+    'Residual sugar',
+    'Chlorides',
+    'Free sulfur dioxide',
+    'Total sulfur dioxide',
+    'Density',
+    'PH',
+    'Sulphates',
+    'Alcohol',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +26,15 @@ class HomeScreen extends StatelessWidget {
       body: CustomScaffoldMainContainer(
         child: Container(
           margin: const EdgeInsets.only(bottom: 70),
-          child: SingleChildScrollView(
-            child: Wrap(
-              runSpacing: 20,
-              children: [
-                CustomTextFormField(labelText: 'Fixed Acidity'),
-                CustomTextFormField(labelText: 'Volatile acidity'),
-                CustomTextFormField(labelText: 'Citric acid'),
-                CustomTextFormField(labelText: 'Residual sugar'),
-                CustomTextFormField(labelText: 'Chlorides'),
-                CustomTextFormField(labelText: 'Free sulfur dioxide'),
-                CustomTextFormField(labelText: 'Total sulfur dioxide'),
-                CustomTextFormField(labelText: 'Density'),
-                CustomTextFormField(labelText: 'PH'),
-                CustomTextFormField(labelText: 'Sulphates'),
-                CustomTextFormField(labelText: 'Alcohol'),
-              ],
-            ),
+          child: ListView.builder(
+            itemCount: _attributes.length,
+            addAutomaticKeepAlives: true,
+            itemBuilder: (BuildContext context, int i) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: CustomTextFormField(labelText: _attributes[i]),
+              );
+            },
           ),
         ),
       ),
