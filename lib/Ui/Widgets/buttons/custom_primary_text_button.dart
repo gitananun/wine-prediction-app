@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomPrimaryTextButton extends StatelessWidget {
-  const CustomPrimaryTextButton({Key? key, required this.text}) : super(key: key);
+  const CustomPrimaryTextButton({Key? key, required this.text, required this.onPressed}) : super(key: key);
   final String text;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CustomPrimaryTextButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
     );
   }
 }

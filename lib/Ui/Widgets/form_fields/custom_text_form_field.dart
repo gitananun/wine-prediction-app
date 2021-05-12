@@ -5,9 +5,13 @@ class CustomTextFormField extends StatelessWidget {
     Key? key,
     this.hintText,
     this.labelText,
+    this.validator,
+    this.controller,
   }) : super(key: key);
   final String? hintText;
   final String? labelText;
+  final FormFieldValidator<String>? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +20,11 @@ class CustomTextFormField extends StatelessWidget {
     final double _gapPadding = 3;
 
     return TextFormField(
-      style: _themeData.textTheme.caption,
+      validator: validator,
+      controller: controller,
       enableSuggestions: false,
+      style: _themeData.textTheme.caption,
+      autovalidateMode: AutovalidateMode.disabled,
       autocorrect: false,
       decoration: InputDecoration(
         hintText: hintText,
