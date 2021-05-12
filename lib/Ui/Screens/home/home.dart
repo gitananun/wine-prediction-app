@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:schema/Domain/Actions/WinePredictAction.dart';
+import 'package:schema/Domain/Models/Wine.dart';
 
-import 'package:schema/Infrastructure/Mixins/TypeMixin.dart';
+import 'package:schema/Infrastructure/Validators/EmptyValidator.dart';
 import 'package:schema/Ui/Screens/home/scaffold/home_scaffold.dart';
+import 'package:schema/Ui/Screens/prediction/prediction.dart';
 import 'package:schema/Ui/Widgets/containers/custom_scaffold_main_container.dart';
 import 'package:schema/Ui/Widgets/form_fields/custom_text_form_field.dart';
 
@@ -13,11 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  Map<String, TextEditingController> _controllers = {};
-
   late Map<String, Object> _results = {};
+  final _formKey = GlobalKey<FormState>();
+  Map<String, TextEditingController> _controllers = {};
+  final WinePredictAction _winePredictAction = WinePredictAction();
 
   final List<String> _attributes = [
     'Fixed Acidity',
@@ -33,18 +35,24 @@ class _HomeScreenState extends State<HomeScreen> {
     'Alcohol',
   ];
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  void _onPressed() async {
+    if (_formKey.currentState!.validate()) {
+      _controllers.forEach((label, controller) {
+        _results[label.toLowerCase().replaceAll(' ', '_')] = double.parse(controller.text);
+      });
 
-  void _onPressed() {
-    if (!_formKey.currentState!.validate()) throw Exception();
-    _controllers.forEach((label, controller) {
-      _results[label.toLowerCase().replaceAll(' ', '_')] = controller.text;
-    });
+      String response = await _winePredictAction.predict(_results);
 
-    print(_results);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => PredictionScreen(
+            wine: Wine.fromJson(_results),
+            prediction: response,
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -68,9 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CustomTextFormField(
                     controller: _controller,
                     labelText: _label,
-                    validator: (v) {
-                      if (!TypeMixin.isNumeric(v)) return "Must be a number";
-                    },
+                    validator: (v) => EmptyValidator().check(v),
                   ),
                 );
               },

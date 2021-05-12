@@ -24,11 +24,13 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       enableSuggestions: false,
       style: _themeData.textTheme.caption,
-      autovalidateMode: AutovalidateMode.disabled,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
       autocorrect: false,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
+        errorStyle: _themeData.textTheme.caption?.copyWith(color: _themeData.errorColor).apply(fontSizeDelta: -3),
         contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         labelStyle: TextStyle(fontSize: 18),
         focusedBorder: OutlineInputBorder(
@@ -39,6 +41,16 @@ class CustomTextFormField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: _borderRadius,
           borderSide: BorderSide(color: _themeData.accentColor),
+          gapPadding: _gapPadding,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: _borderRadius,
+          borderSide: BorderSide(color: _themeData.errorColor),
+          gapPadding: _gapPadding,
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: _borderRadius,
+          borderSide: BorderSide(color: _themeData.errorColor),
           gapPadding: _gapPadding,
         ),
       ),
