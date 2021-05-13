@@ -1,0 +1,1 @@
+class WinePredictServiceException implements Exception {}

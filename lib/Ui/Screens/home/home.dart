@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:schema/Domain/Actions/WinePredictAction.dart';
-import 'package:schema/Domain/Models/Wine.dart';
 
 import 'package:schema/Infrastructure/Validators/EmptyValidator.dart';
 import 'package:schema/Ui/Screens/home/scaffold/home_scaffold.dart';
@@ -16,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = false;
   late Map<String, Object> _results = {};
   final _formKey = GlobalKey<FormState>();
   Map<String, TextEditingController> _controllers = {};
@@ -36,18 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   void _onPressed() async {
+    setState(() => isLoading = true);
     if (_formKey.currentState!.validate()) {
       _controllers.forEach((label, controller) {
         _results[label.toLowerCase().replaceAll(' ', '_')] = double.parse(controller.text);
       });
 
-      String response = await _winePredictAction.predict(_results);
+      Map<String, dynamic> response = await _winePredictAction.predict(_results).whenComplete(
+            () => setState(() => isLoading = !isLoading),
+          );
 
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => PredictionScreen(
-            wine: Wine.fromJson(_results),
+            attributes: _results,
             prediction: response,
           ),
         ),
@@ -59,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return HomeScreenScaffold(
       onPressed: _onPressed,
+      isLoading: isLoading,
       body: CustomScaffoldMainContainer(
         child: Container(
           margin: const EdgeInsets.only(bottom: 70),
