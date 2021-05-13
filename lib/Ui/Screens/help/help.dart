@@ -11,8 +11,14 @@ class HelpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        centerTitle: true,
         title: Text('Help'),
         backgroundColor: Colors.white,
+        textTheme: Theme.of(context).textTheme,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.maybePop(context),
+        ),
       ),
       body: CustomScaffoldMainContainer(
         alignment: Alignment.topLeft,
