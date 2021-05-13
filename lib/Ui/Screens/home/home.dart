@@ -38,12 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onPressed() async {
     HapticFeedback.mediumImpact();
-    setState(() => isLoading = true);
     if (_formKey.currentState!.validate()) {
       _controllers.forEach((label, controller) {
         _results[label.toLowerCase().replaceAll(' ', '_')] = double.parse(controller.text);
       });
 
+      setState(() => isLoading = true);
       Map<String, dynamic> response = await _winePredictAction.predict(_results).whenComplete(
             () => setState(() => isLoading = !isLoading),
           );

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.schema">
    <application
-        android:label="schema"
+        android:label="Wine Prediction"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

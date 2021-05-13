@@ -6,7 +6,7 @@ abstract class MTStheme {
   static const Color hintColor = secondaryTextColor;
   static const Color errorColor = Colors.red;
   static const Color accentColor = Color(0xFFD0D0D0);
-  static const Color primaryColor = Color(0xFF5DB075);
+  static const Color primaryColor = Color(0xFFA03435);
   static const Color dividerColor = Color(0xFFd0dbea);
   static const Color splashColor = Colors.transparent;
   static const Color cardBgDarkColor = Color(0xFF222222);

@@ -33,7 +33,7 @@ class PredictionScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${_value * 10}%',
+                      '${(_value * 10).toInt()}%',
                       style: _themeData.textTheme.headline5?.apply(color: _themeData.primaryColor),
                     ),
                     Text(
@@ -45,7 +45,7 @@ class PredictionScreen extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Container(
-                height: MediaQuery.of(context).size.height / 2.5,
+                height: MediaQuery.of(context).size.height / 2,
                 child: ListView.separated(
                   shrinkWrap: false,
                   itemCount: attributes.length,
