@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:schema/Domain/Actions/WinePredictAction.dart';
 
 import 'package:schema/Infrastructure/Validators/EmptyValidator.dart';
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   void _onPressed() async {
+    HapticFeedback.mediumImpact();
     setState(() => isLoading = true);
     if (_formKey.currentState!.validate()) {
       _controllers.forEach((label, controller) {
