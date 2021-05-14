@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
 
       setState(() => isLoading = true);
+
       Map<String, dynamic> response = await _winePredictAction.predict(_results).whenComplete(
             () => setState(() => isLoading = !isLoading),
           );
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return HomeScreenScaffold(
-      onPressed: _onPressed,
+      onPressed: !isLoading ? _onPressed : () {},
       isLoading: isLoading,
       body: CustomScaffoldMainContainer(
         child: Container(

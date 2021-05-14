@@ -24,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       enableSuggestions: false,
       style: _themeData.textTheme.caption,
+      textInputAction: TextInputAction.next,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       autocorrect: false,

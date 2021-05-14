@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schema/Ui/Widgets/buttons/custom_back_leading_button.dart';
 import 'package:schema/Ui/Widgets/containers/custom_scaffold_main_container.dart';
 
 class HelpScreen extends StatelessWidget {
@@ -15,10 +16,7 @@ class HelpScreen extends StatelessWidget {
         title: Text('Help'),
         backgroundColor: Colors.white,
         textTheme: Theme.of(context).textTheme,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.maybePop(context),
-        ),
+        leading: CustomBackLeadingButton(),
       ),
       body: CustomScaffoldMainContainer(
         alignment: Alignment.topLeft,
